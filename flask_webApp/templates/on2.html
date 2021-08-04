@@ -67,9 +67,13 @@
 
 
 <h2>led on/off switch</h2>
-<form action="/off2">
+<form action="/on2">
     <label class="switch">
-        <input type="checkbox" checked="{{case}}" onclick="submit();">
+        {% if 'True'== case %}
+        <input type="checkbox" checked="True" onclick="submit();">
+        {% else %}
+        <input type="checkbox" onclick="submit();">
+        {% endif %}
         <span class="slider round"></span>
     </label>
 </form>

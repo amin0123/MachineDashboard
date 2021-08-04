@@ -4,19 +4,24 @@ import serial
 ser = serial.Serial('/dev/ttyACM0', 9600)
 
 app = Flask(__name__)
+ledon="ledon"
+ledoff="ledoff"
+#fromarduino=""
+toarduino="<ledoff>"
 case = ""
-toarduino = ""
-
 
 @app.route('/')
 @app.route('/on2')
 def on():
-    if (serial.in_waiting > 0):
+    fromarduino=""
+    if (ser.in_waiting > 0):
         fromarduino = ser.readline()
-    if (fromarduino == "ledon"):
+        print(fromarduino)
+
+    if (fromarduino == ledon.encode()):
         toarduino = "<ledoff>"
-        case = "False"
-    elif (fromarduino == "ledoff"):
+        case = "True"
+    elif (fromarduino == ledoff.encode()):
         toarduino = "<ledon>"
         case = "True"
 
@@ -27,10 +32,10 @@ def on():
 
 # @app.route('/off2')
 # def off():
- #   toarduino2 = "<ledoff>"
-  #  toarduinoencoded2 = toarduino2.encode()
-   # ser.write(toarduinoencoded2)
-    # return render_template('off2.html')
+#   toarduino2 = "<ledoff>"
+#  toarduinoencoded2 = toarduino2.encode()
+# ser.write(toarduinoencoded2)
+# return render_template('off2.html')
 
 
 if __name__ == '__main__':
